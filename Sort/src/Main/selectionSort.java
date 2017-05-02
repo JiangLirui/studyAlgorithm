@@ -18,6 +18,27 @@ public class selectionSort {
 					data.set(minLoc, temp);
 				}
 			}
+			
+			
+//			for(int i=0,j=data.size()-1;i<j;++i,--j){
+//				int minLoc=i;
+//				int maxLoc=j;
+//				for(int k=i;k<=j;++k){
+//					if(data.get(k)<data.get(minLoc)){
+//						minLoc=k;
+//					}
+//					if(data.get(k)>data.get(maxLoc)){
+//						maxLoc=k;
+//					}
+//				}
+//				int temp=data.get(i);
+//				data.set(i, data.get(minLoc));
+//				data.set(minLoc, temp);
+//				temp=data.get(j);
+//				data.set(j, data.get(maxLoc));
+//				data.set(maxLoc, temp);
+//			}
+			
 		}
 	}
 

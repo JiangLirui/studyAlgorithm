@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Main {
 	public static ArrayList<Integer> data=new ArrayList<Integer>();
-	public static String path = new String("E:/eclipse/JavaCode/Sort/");
+	public static String path = new String("data/");
 	
 	public static void output(String filename){
 		File file=new File(path+filename);
@@ -37,8 +37,10 @@ public class Main {
 		
 		long startTime=System.currentTimeMillis();
 //		insertionSort.run(data);
-		selectionSort.run(data);
+//		selectionSort.run(data);
 //		bubbleSort.run(data);
+//		cocktailSort.run(data);
+		shellSort.run(data);
 		long endTime=System.currentTimeMillis();
 		System.out.println("use time: "+ (endTime-startTime)+"ms");
 		
