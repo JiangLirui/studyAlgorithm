@@ -27,7 +27,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		int len=10000;
+		int len=10000000;
 		Random rand = new Random();
 		for (int i = 0; i != len; ++i) {
 			data.add(rand.nextInt(10000));
@@ -46,7 +46,9 @@ public class Main {
 //		mergeSort.runIterator(data);
 //		quickSort.run(data,0,data.size());
 //		heapSort.run(data);
-		countSort.run(data);
+//		countSort.run(data);
+//		radixSort.run(data);
+		bucketSort.run(data);
 		long endTime=System.currentTimeMillis();
 		System.out.println("use time: "+ (endTime-startTime)+"ms");
 		
