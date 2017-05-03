@@ -31,6 +31,7 @@ public class Main {
 		Random rand = new Random();
 		for (int i = 0; i != len; ++i) {
 			data.add(rand.nextInt(10000));
+//			data.add(len-i);
 		}
 		
 		output("before_sort.txt");
@@ -40,7 +41,12 @@ public class Main {
 //		selectionSort.run(data);
 //		bubbleSort.run(data);
 //		cocktailSort.run(data);
-		shellSort.run(data);
+//		shellSort.run(data);
+//		mergeSort.runRecursion(data, 0, data.size());
+//		mergeSort.runIterator(data);
+//		quickSort.run(data,0,data.size());
+//		heapSort.run(data);
+		countSort.run(data);
 		long endTime=System.currentTimeMillis();
 		System.out.println("use time: "+ (endTime-startTime)+"ms");
 		
