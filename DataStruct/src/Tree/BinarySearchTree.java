@@ -22,14 +22,18 @@ public class BinarySearchTree {
 	}
 	
 	public Node<Integer> minNode(Node<Integer> x){
-		while(x.left!=null){
-			x=x.left;
+		if(x!=null){
+			while(x.left!=null){
+				x=x.left;
+			}
 		}
 		return x;
 	}
 	public Node<Integer> maxNode(Node<Integer> x){
-		while(x.right!=null){
-			x=x.right;
+		if(x!=null){
+			while(x.right!=null){
+				x=x.right;
+			}
 		}
 		return x;
 	}
@@ -251,6 +255,11 @@ public class BinarySearchTree {
 		}
 		
 		System.out.println(tree.search(5));
+		
+		while((x=tree.minNode(tree.root))!=null){
+			tree.delete(x);
+			tree.print();
+		}
 		
 		
 	}
