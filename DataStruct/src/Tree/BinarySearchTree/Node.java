@@ -1,4 +1,4 @@
-package Tree;
+package Tree.BinarySearchTree;
 
 public class Node<T> {
 	public T key;

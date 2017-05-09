@@ -1,6 +1,7 @@
-package Tree;
+package Tree.BinarySearchTree;
 
 import java.util.Random;
+
 
 public class BinarySearchTree {
 	public Node<Integer> root=null;
@@ -90,6 +91,7 @@ public class BinarySearchTree {
 	public void insert(int t){
 		if(root==null){
 			root=new Node<Integer>(t);
+			return;
 		}
 		Node<Integer> x=root;
 		while(true){
@@ -230,7 +232,8 @@ public class BinarySearchTree {
 		Random rand=new Random();
 //		long start=System.currentTimeMillis();
 		for(int i=0;i!=50;++i){
-			tree.insert(rand.nextInt(10));
+//			tree.insert(rand.nextInt(10));
+			tree.insert(i);
 		}
 //		long end=System.currentTimeMillis();
 //		System.out.println("used time:"+(end-start)+"ms");
@@ -256,7 +259,7 @@ public class BinarySearchTree {
 		
 		System.out.println(tree.search(5));
 		
-		while((x=tree.minNode(tree.root))!=null){
+		while((x=tree.maxNode(tree.root))!=null){
 			tree.delete(x);
 			tree.print();
 		}
