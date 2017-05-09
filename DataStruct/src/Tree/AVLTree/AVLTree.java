@@ -402,7 +402,8 @@ public class AVLTree {
 				x.parent=null;
 			}
 		}else{
-			if(x.right.left==null){
+			Node<Integer> y=minNode(x.right);
+			if(y.parent==x){
 				System.out.println("case4:");
 				x.left.parent=x.right;
 				x.right.left=x.left;
@@ -425,7 +426,6 @@ public class AVLTree {
 				x.right=null;
 			}else{
 				System.out.println("case5:");
-				Node<Integer> y=minNode(x.right);
 				y.parent.left=y.right;
 				if(y.right!=null){
 					y.right.parent=y.parent;
@@ -512,20 +512,31 @@ public class AVLTree {
 		
 		tree.delete(tree.search(15));
 		tree.print();
-		tree.delete(tree.search(23));
-		tree.print();
 		tree.delete(tree.search(25));
-		tree.print();
-		tree.delete(tree.search(1));
-		tree.print();
-		tree.delete(tree.search(30));
-		tree.print();
-		tree.delete(tree.search(50));
 		tree.print();
 		tree.delete(tree.search(40));
 		tree.print();
 		tree.delete(tree.search(3));
 		tree.print();
+		tree.delete(tree.search(20));
+		tree.print();
+		
+//		tree.delete(tree.search(15));
+//		tree.print();
+//		tree.delete(tree.search(23));
+//		tree.print();
+//		tree.delete(tree.search(25));
+//		tree.print();
+//		tree.delete(tree.search(1));
+//		tree.print();
+//		tree.delete(tree.search(30));
+//		tree.print();
+//		tree.delete(tree.search(50));
+//		tree.print();
+//		tree.delete(tree.search(40));
+//		tree.print();
+//		tree.delete(tree.search(3));
+//		tree.print();
 		
 	}
 	

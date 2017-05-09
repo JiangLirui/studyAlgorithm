@@ -111,7 +111,6 @@ public class RBTree {
 	}
 	
 	private void adjustForInsert(Node<Integer> x){
-		
 		while(x.parent.RED){
 			if(x.parent.parent.left==x.parent){
 				if(x.parent.parent.right!=null && x.parent.parent.right.RED){
@@ -189,124 +188,252 @@ public class RBTree {
 		}
 	}
 	
-//	private void adjustForDelete(Node<Integer> x,boolean left){
-//		
-//	}
-//	public void delete(Node<Integer> x){
-//		if(x.left==null){
-//			if(x.right==null){
-//				System.out.println("case1:");
-//				if(x.parent==null){
-//					root=null;
-//				}else{
-//					if(x.parent.left==x){
-//						x.parent.left=null;
-//						
-//						adjustForDelete(x.parent,true);
-//					}else{
-//						x.parent.right=null;
-//						
-//						adjustForDelete(x.parent,false);
-//					}
-//					x.parent=null;
-//				}
-//			}else{
-//				System.out.println("case2:");
-//				x.right.parent=x.parent;
-//				if(x.parent==null){
-//					root=x.right;
-//					x.right=null;
-//				}else{
-//					if(x.parent.left==x){
-//						x.parent.left=x.right;
-//						x.right=null;
-//						
-//						adjustForDelete(x.parent,true);
-//					}else{
-//						x.parent.right=x.right;
-//						x.right=null;
-//						
-//						adjustForDelete(x.parent,false);
-//					}
-//					x.parent=null;
-//				}
-//			}
-//		}else if(x.right==null){
-//			System.out.println("case3:");
-//			x.left.parent=x.parent;
-//			if(x.parent==null){
-//				root=x.left;
-//				x.left=null;
-//			}else{
-//				if(x.parent.left==x){
-//					x.parent.left=x.left;
-//					x.left=null;
-//					
-//					adjustForDelete(x.parent,true);
-//				}else{
-//					x.parent.right=x.left;
-//					x.left=null;
-//					
-//					adjustForDelete(x.parent,false);
-//				}
-//				x.parent=null;
-//			}
-//		}else{
-//			if(x.right.left==null){
-//				System.out.println("case4:");
-//				x.left.parent=x.right;
-//				x.right.left=x.left;
-//				x.left=null;
-//				x.right.parent=x.parent;
-//				if(x.parent==null){
-//					root=x.right;
-//				}else{
-//					if(x.parent.left==x){
-//						x.parent.left=x.right;
-//					}else{
-//						x.parent.right=x.right;
-//					}
-//					x.parent=null;
-//				}
-//				
-//				x.right.bf=x.bf;
-//				adjustForDelete(x.right,false);
-//				
-//				x.right=null;
-//			}else{
-//				System.out.println("case5:");
-//				Node<Integer> y=minNode(x.right);
-//				y.parent.left=y.right;
-//				if(y.right!=null){
-//					y.right.parent=y.parent;
-//				}
-//				
-//				y.left=x.left;
-//				x.left.parent=y;
-//				x.left=null;
-//				y.right=x.right;
-//				x.right.parent=y;
-//				x.right=null;
-//				
-//				y.bf=x.bf;
-//				Node<Integer> p=y.parent;
-//				
-//				y.parent=x.parent;
-//				if(x.parent==null){
-//					root=y;
-//				}else{
-//					if(x.parent.left==x){
-//						x.parent.left=y;
-//					}else{
-//						x.parent.right=y;
-//					}
-//					x.parent=null;
-//				}
-//				
-//				adjustForDelete(p,true);
-//			}
-//		}
-//	}
+	private void adjustForDelete(Node<Integer> x){
+		while(x!=root && !x.RED){
+			if(x.parent.left==x){
+				Node<Integer> w=x.parent.right;
+				if(w==null) {
+					x=x.parent;
+				}else{
+					if(w.RED){
+						x.parent.RED=true;
+						w.RED=false;
+						leftRotate(x.parent);
+					}else{
+						if(w.left==null){
+							if(w.right==null){
+								w.RED=true;
+								x=x.parent;
+							}else{
+								if(w.right.RED){
+									w.right.RED=false;
+									w.RED=x.parent.RED;
+									x.parent.RED=false;
+									leftRotate(x.parent);
+									break;
+								}else{
+									w.RED=true;
+									x=x.parent;
+								}
+							}
+						}else{
+							if(w.right==null){
+								if(w.left.RED){
+									w.left.RED=false;
+									w.RED=true;
+									rightRotate(w);
+								}else{
+									w.RED=true;
+									x=x.parent;
+								}
+							}else{
+								if(w.right.RED){
+									w.right.RED=false;
+									w.RED=x.parent.RED;
+									x.parent.RED=false;
+									leftRotate(x.parent);
+									break;
+								}else{
+									if(w.left.RED){
+										w.left.RED=false;
+										w.RED=true;
+										rightRotate(w);
+									}else{
+										w.RED=true;
+										x=x.parent;
+									}
+								}
+							}
+						}
+					}
+				}
+			}else{
+				Node<Integer> w=x.parent.left;
+				if(w==null) {
+					x=x.parent;
+				}else{
+					if(w.RED){
+						x.parent.RED=true;
+						w.RED=false;
+						rightRotate(x.parent);
+					}else{
+						if(w.left==null){
+							if(w.right==null){
+								w.RED=true;
+								x=x.parent;
+							}else{
+								if(w.right.RED){
+									w.RED=true;
+									w.right.RED=false;
+									leftRotate(w);
+								}else{
+									w.RED=true;
+									x=x.parent;
+								}
+							}
+						}else{
+							if(w.left.RED){
+								w.left.RED=false;
+								w.RED=w.parent.RED;
+								w.parent.RED=false;
+								rightRotate(w.parent);
+								break;
+							}else{
+								if(w.right.RED){
+									w.right.RED=false;
+									w.RED=true;
+									leftRotate(w);
+								}else{
+									w.RED=true;
+									x=x.parent;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		root.RED=false;
+	}
+	public void delete(Node<Integer> x){
+		if(x.left==null){
+			if(x.right==null){
+				System.out.println("case1:");
+				if(x.parent==null){
+					root=null;
+				}else{
+					if(x.parent.left==x){
+						x.parent.left=null;
+					}else{
+						x.parent.right=null;
+					}
+					x.parent=null;
+				}
+			}else{
+				System.out.println("case2:");
+				x.right.parent=x.parent;
+				if(x.parent==null){
+					root=x.right;
+				}else{
+					if(x.parent.left==x){
+						x.parent.left=x.right;
+					}else{
+						x.parent.right=x.right;
+					}
+					x.parent=null;
+				}
+				
+				if(!x.RED){
+					if(x.right.RED){
+						x.right.RED=false;
+					}else{
+						adjustForDelete(x.right);
+					}
+				}
+				
+				x.right=null;
+			}
+		}else if(x.right==null){
+			System.out.println("case3:");
+			x.left.parent=x.parent;
+			if(x.parent==null){
+				root=x.left;
+			}else{
+				if(x.parent.left==x){
+					x.parent.left=x.left;
+				}else{
+					x.parent.right=x.left;
+					
+				}
+				x.parent=null;
+			}
+			
+			if(!x.RED){
+				if(x.left.RED){
+					x.left.RED=false;
+				}else{
+					adjustForDelete(x.left);
+				}
+			}
+
+			x.left=null;
+		}else{
+			Node<Integer> y=minNode(x.right);
+			if(y.parent==x){
+				System.out.println("case4:");
+				x.left.parent=x.right;
+				x.right.left=x.left;
+				x.left=null;
+				x.right.parent=x.parent;
+				if(x.parent==null){
+					root=x.right;
+				}else{
+					if(x.parent.left==x){
+						x.parent.left=x.right;
+					}else{
+						x.parent.right=x.right;
+					}
+					x.parent=null;
+				}
+				
+				if(y.RED){
+					y.RED=false;
+				}else{
+					y.RED=x.RED;
+					if(y.right!=null){
+						if(y.right.RED){
+							y.right.RED=false;
+						}else{
+							adjustForDelete(y.right);
+						}
+					}
+				}
+				
+				x.right=null;
+			}else{
+				System.out.println("case5:");
+				Node<Integer> z=y.right;
+				y.parent.left=y.right;
+				if(y.right!=null){
+					y.right.parent=y.parent;
+				}
+				
+				y.left=x.left;
+				x.left.parent=y;
+				x.left=null;
+				y.right=x.right;
+				x.right.parent=y;
+				x.right=null;
+				
+				y.parent=x.parent;
+				if(x.parent==null){
+					root=y;
+				}else{
+					if(x.parent.left==x){
+						x.parent.left=y;
+					}else{
+						x.parent.right=y;
+					}
+					x.parent=null;
+				}
+				
+				if(!y.RED){
+					y.RED=x.RED;
+					if(z!=null){
+						if(z.RED){
+							z.RED=false;
+						}else{
+							adjustForDelete(z);
+						}
+					}
+				}else{
+					y.RED=x.RED;
+				}
+				
+			}
+		}
+	}
 	
 	//效率较快
 	public void print(Node<Integer> x){
@@ -327,8 +454,10 @@ public class RBTree {
 				x=successor(x);
 			}
 			System.out.println();
+			
+			System.out.println("root:"+root.key);
+			System.out.println("-------------------------------------------");
 		}
-		
 	}
 	
 	public static void main(String[] args){
@@ -356,22 +485,17 @@ public class RBTree {
 		tree.insert(3);
 		tree.print();
 		
-//		tree.delete(tree.search(15));
-//		tree.print();
-//		tree.delete(tree.search(23));
-//		tree.print();
-//		tree.delete(tree.search(25));
-//		tree.print();
-//		tree.delete(tree.search(1));
-//		tree.print();
-//		tree.delete(tree.search(30));
-//		tree.print();
-//		tree.delete(tree.search(50));
-//		tree.print();
-//		tree.delete(tree.search(40));
-//		tree.print();
-//		tree.delete(tree.search(3));
-//		tree.print();
+		tree.delete(tree.search(15));
+		tree.print();
+		tree.delete(tree.search(25));
+		tree.print();
+		tree.delete(tree.search(40));
+		tree.print();
+		tree.delete(tree.search(3));
+		tree.print();
+		tree.delete(tree.search(20));
+		tree.print();
+		
 		
 	}
 	

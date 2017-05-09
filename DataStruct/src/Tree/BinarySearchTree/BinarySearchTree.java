@@ -158,7 +158,8 @@ public class BinarySearchTree {
 				x.left=null;
 			}
 		}else{
-			if(x.right.left==null){
+			Node<Integer> y=minNode(x.right);
+			if(y.parent==x){
 				x.left.parent=x.right;
 				x.right.left=x.left;
 				x.left=null;
@@ -176,7 +177,6 @@ public class BinarySearchTree {
 					x.right=null;
 				}
 			}else{
-				Node<Integer> y=minNode(x.right);
 				y.parent.left=y.right;
 				if(y.right!=null){
 					y.right.parent=y.parent;
